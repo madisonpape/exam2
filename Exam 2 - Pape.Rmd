@@ -1,0 +1,162 @@
+---
+title: "Exam 2 PDF"
+author: "Madison Pape"
+date: "6/28/2021"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1 - Clear the environment
+
+```
+rm(list = ls())
+
+```
+
+## Question 2 - Load and name exam data
+
+```
+library(readxl)
+college_scorecard <- read_excel("2021_exam2_data - college scorecard.xlsx")
+attach(college_scorecard)
+
+```
+
+## Question 3 - Providing summary statistcs
+
+```
+summary(college_scorecard)
+
+```
+
+## Question 4 - Creating smaller dataset for 2014-2015 graduates of 4+ year colleges and universities located in TX and LA
+
+```
+library(tidyverse)
+small_scorecard_year <-
+  college_scorecard %>%
+  dplyr::filter(year=="2014" | year=="2015") 
+  
+small_scorecard <-
+  small_scorecard_year %>%
+  dplyr::filter(state_abbr=="LA" | state_abbr=="TX")
+
+```
+
+## Question 5 - Collapse the small_scorecard data frame to get both the average of number people working who graduated from universities in Texas and Lousiana; and the total number of people working who graduated from universities in Texas and Lousiana. Call your resulting data frame “even_smaller_scorecard”
+
+```
+tx_total <- sum(small_scorecard[small_scorecard$state_abbr == “TX”]$count_working)
+la_total <- sum(small_scorecard[small_scorecard$state_abbr == “LA”]$count_working)
+
+tx_count <- sum(small_scorecard$state_abbr == “TX”)
+la_count <- sum(small_scorecard$state_abbr == “LA”)
+
+even_smaller_scorecard <- data.frame(“State” = c(“Texas”,”Louisiana”), “Average” = c(tx_total/tx_count, la_total/la_count), “Total” = c(tx_total, la_total))
+```
+
+## Question 6 - Create a bar graph of percentage of people working
+
+```
+total_allwork <- sum(count_working) + sum(count_not_working)
+percent_working <- sum(count_working) / total_allwork
+barplot(percent_working)
+
+```
+## Question 7 - 
+
+```
+```
+
+## Question 8 - Load data frame and call it "Avocados"
+
+```
+library(readxl)
+avocados <- read_excel("2021_exam2_data - avocados.xlsx")
+attach(avocados)
+
+```
+
+## Question 9 - Create a new variable "year" that only captures year sold
+
+```
+library(tidyverse)
+year <- lubridate::year(avocados$date)
+
+```
+
+## Question 10 - 
+
+```
+library(WDI)
+average_price_adjusted <- 
+
+```
+## Question 11 - collapsing the data
+```
+collapsed_avocados <-
+  avocados %>%
+  group_by(average_price_adjusted) %>%
+  head(collapsed_avocados)
+```
+
+## Question 12 -
+
+## Question 13 -
+
+## Question 14 - load the training dataset and call it training
+```
+library(readxl)
+training <- read_excel("2021_exam2_data - titanic.xlsx")
+View(training)
+```
+
+## Question 15 - 
+```
+
+```
+
+
+
+
+## Question 16 - load the Titanic dataset
+
+```
+library(readxl)
+titanic <- read_excel("2021_exam2_data - titanic.xlsx")
+View(titanic)
+attatch(titanic)
+
+```
+
+## Question 17 - provide summary statistics for the titanic data
+
+```
+summary(titanic)
+
+```
+
+## Question 18 - create a cross-tab for survivorship by gender
+
+```
+gender_survival <- table(titanic$female, titanic$survived)
+View(gender_survival)
+```
+Knowing that variable 1 in our table governs gender, with 1 being femmale and 0 being male, and variable 2 in our table governs survivorship, with 0 meaning did not survive and 1 meaning did survive, we can determine that more men than women did die on the titanic. More men died than women overall but there were also more men who survived as there were more men than women on the boat in general.
+
+## Question 19 - frequency table for first_class
+
+```
+ifelse(titanic$class=="1", "nothing")
+titanic %>%
+  table(titanic)
+
+```
+
+## Bonus - "My Heart Will Go On" by Celine Dion
+
